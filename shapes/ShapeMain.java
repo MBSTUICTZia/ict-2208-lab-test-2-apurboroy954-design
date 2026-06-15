@@ -1,31 +1,71 @@
+package shapes;
 
-public class Circle extends Shape {
+import java.util.Scanner;
 
-    private double radius;
+public class ShapeMain {
 
-    public Circle(String color, boolean filled, double radius) {
-        super(color, filled);
-        this.radius = radius;
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // TASK 1
+        int n = sc.nextInt();
+
+        // TASK 2
+        Shape[] shapes = new Shape[n];
+
+        // TASK 3
+        for (int i = 0; i < n; i++) {
+
+            String type = sc.next();
+            String color = sc.next();
+            boolean filled = sc.nextBoolean();
+
+            if (type.equals("RECTANGLE")) {
+
+                double width = sc.nextDouble();
+                double length = sc.nextDouble();
+
+                shapes[i] = new Rectangle(color, filled, width, length);
+
+            } else if (type.equals("CIRCLE")) {
+
+                double radius = sc.nextDouble();
+
+                shapes[i] = new Circle(color, filled, radius);
+            }
+        }
+
+        // TASK 4
+        for (Shape s : shapes) {
+            System.out.println(s);
+            System.out.println();
+        }
+
+        // TASK 5
+        System.out.println("--- Downcast Check ---");
+
+        for (Shape s : shapes) {
+
+            if (s instanceof Rectangle) {
+
+                Rectangle r = (Rectangle) s;
+
+                System.out.println("Rectangle width=" + r.getWidth()
+                        + " length=" + r.getLength());
+
+            } else if (s instanceof Circle) {
+
+                Circle c = (Circle) s;
+
+                System.out.println("Circle radius=" + c.getRadius());
+            }
+        }
+
+        // TASK 6
+        // ANSWER:
+        // error: Shape is abstract; cannot be instantiated
+
+        sc.close();
     }
-
-    @Override
-    public double getArea() {
-        return Math.PI * radius * radius;
-    }
-
-    @Override
-    public double getPerimeter() {
-        return 2 * Math.PI * radius;
-    }
-
-    @Override
-    public String toString() {
-        return "[ Circle ]\n" +
-               super.toString() + "\n" +
-               "Radius: " + radius + "\n" +
-               String.format("Area         : %.2f", getArea())      + "\n" +
-               String.format("Circumference: %.2f", getPerimeter());
-    }
-
-    public double getRadius() { return radius; }
 }
