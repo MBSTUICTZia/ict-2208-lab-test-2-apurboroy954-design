@@ -1,88 +1,32 @@
-import java.util.Scanner;
+package shapes;
 
-public class ShapeMain {
+public abstract class Shape{
+    private String color;
+    private boolean filled;
 
-    public static void main(String[] args) {
+    public Shape(String color, boolean filled){
+        this.color = color;
+        this.filled = filled;
+    }
 
-        Scanner sc = new Scanner(System.in);
+    public abstract double getArea();
+    public abstract double getPerimeter();
 
-        int numberOfShapes = sc.nextInt();
-        sc.nextLine();
+    @Override 
+    public String toString(){
+        return "Color : " + color + "\n" + "Filled: " + (filled? "Yes" : "No");
+    }
 
-        Shape[] shapes = new Shape[numberOfShapes];
-
-        // Input
-        for (int i = 0; i < numberOfShapes; i++) {
-
-            String shapeType = sc.nextLine();
-
-            String color = sc.next();
-            boolean filled = sc.nextBoolean();
-
-            // Rectangle
-            if (shapeType.equalsIgnoreCase("RECTANGLE")) {
-
-                double width = sc.nextDouble();
-                double length = sc.nextDouble();
-                sc.nextLine();
-
-                shapes[i] = new Rectangle(
-                        color,
-                        filled,
-                        width,
-                        length
-                );
-            }
-
-            // Circle
-            else if (shapeType.equalsIgnoreCase("CIRCLE")) {
-
-                double radius = sc.nextDouble();
-                sc.nextLine();
-
-                shapes[i] = new Circle(
-                        color,
-                        filled,
-                        radius
-                );
-            }
-        }
-
-        // Output
-        for (Shape s : shapes) {
-
-            System.out.println(s);
-            System.out.println();
-        }
-
-        // Downcasting
-        System.out.println("--- Downcast Check ---");
-
-        for (Shape s : shapes) {
-
-            if (s instanceof Rectangle) {
-
-                Rectangle r = (Rectangle) s;
-
-                System.out.println(
-                        "Rectangle width=" +
-                        r.getWidth() +
-                        " length=" +
-                        r.getLength()
-                );
-            }
-
-            else if (s instanceof Circle) {
-
-                Circle c = (Circle) s;
-
-                System.out.println(
-                        "Circle radius=" +
-                        c.getRadius()
-                );
-            }
-        }
-
-        sc.close();
+    public String getColor(){
+        return color;
+    }
+    public boolean isFilled(){
+        return filled;
+    }
+    public void setcolor(String color){
+        this.color = color;
+    }
+    public void setFilled (boolean filled){
+        this.filled = filled;
     }
 }
